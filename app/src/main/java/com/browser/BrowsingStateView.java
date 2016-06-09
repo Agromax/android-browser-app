@@ -1,9 +1,13 @@
 package com.browser;
 
 import android.content.Context;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  */
@@ -20,19 +24,27 @@ public class BrowsingStateView {
         RelativeLayout relativeLayout = new RelativeLayout(context);
 
         TextView textView = new TextView(context);
-        textView.setText(browsingState.getNavigation().toString());
+
+        textView.setText(readFile());
 
         relativeLayout.addView(textView);
         return relativeLayout;
     }
 
-    public void renderView(ViewGroup parent) {
-        RelativeLayout relativeLayout = new RelativeLayout(context);
-
-        TextView textView = new TextView(context);
-        textView.setText(browsingState.getNavigation().toString());
-
-        relativeLayout.addView(textView);
-        parent.addView(relativeLayout);
+    private String readFile() {
+        String fileName = context.getString(R.string.vocabulary_file_name);
+        StringBuilder s = new StringBuilder();
+        try {
+            FileInputStream fileInputStream = context.openFileInput(fileName);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                s.append(line);
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s.toString();
     }
 }

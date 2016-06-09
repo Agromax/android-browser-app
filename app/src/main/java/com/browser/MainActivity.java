@@ -16,7 +16,6 @@ import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final RandomShit randomShit = new RandomShit(System.currentTimeMillis());
     private final Deque<BrowsingState> browsingStates = new LinkedList<>();
     private final MainActivity self = this;
     private ViewGroup currentBrowsingView = null;
@@ -25,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        updateVocabulary();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, COUNTRIES);
         final AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.input);
@@ -79,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         transitBack();
+    }
+
+    private void updateVocabulary() {
+        new VocabularyManager(this).execute(getString(R.string.vocabulary_update_url));
     }
 
     private static final String[] COUNTRIES = new String[]{
