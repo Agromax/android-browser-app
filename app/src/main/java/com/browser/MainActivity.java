@@ -1,16 +1,16 @@
 package com.browser;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private final Deque<BrowsingState> browsingStates = new LinkedList<>();
     private final MainActivity self = this;
     private ViewGroup currentBrowsingView = null;
+    private ArrayAdapter<String> mAutoCompletionAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         updateVocabulary();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+        mAutoCompletionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line);
         final AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.input);
-        textView.setAdapter(adapter);
-        textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        textView.setAdapter(mAutoCompletionAdapter);
+        textView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-                String selected = textView.getText().toString();
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                /*String selected = s.toString();
                 Button t = new Button(self);
                 t.setText(selected);
                 t.setEnabled(false);
@@ -49,9 +57,27 @@ public class MainActivity extends AppCompatActivity {
                 }
                 BrowsingState currentState = new BrowsingState(previousState, selected);
                 browsingStates.push(currentState);
-                renderState(currentState);
+                renderState(currentState);*/
+                new VocabAutoCompletion().execute(s.toString());
             }
         });
+
+    }
+
+    private class VocabAutoCompletion extends AsyncTask<String, Void, ArrayList<String>> {
+        @Override
+        protected ArrayList<String> doInBackground(String... params) {
+            Vocabulary vocab = Vocabulary.getInstance(self);
+            return vocab.query("/", params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> strings) {
+            mAutoCompletionAdapter.clear();
+            for (String s : strings) {
+                mAutoCompletionAdapter.add(s);
+            }
+        }
     }
 
     private void transitBack() {
@@ -85,7 +111,4 @@ public class MainActivity extends AppCompatActivity {
         new VocabularyManager(this).execute(getString(R.string.vocabulary_update_url));
     }
 
-    private static final String[] COUNTRIES = new String[]{
-            "Belgium", "France", "Italy", "Germany", "Spain"
-    };
 }

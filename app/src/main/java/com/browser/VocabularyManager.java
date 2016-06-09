@@ -21,14 +21,21 @@ public class VocabularyManager extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... urls) {
         String xmlData = Downloader.download(urls[0]);
-        try {
-            FileOutputStream fout = context.openFileOutput(context.getString(R.string.vocabulary_file_name), 0);
-            fout.write(xmlData.getBytes());
-            fout.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (xmlData != null) {
+            try {
+                FileOutputStream fout = context.openFileOutput(context.getString(R.string.vocabulary_file_name), 0);
+                fout.write(xmlData.getBytes());
+                fout.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        Vocabulary.getInstance(context);
     }
 }
