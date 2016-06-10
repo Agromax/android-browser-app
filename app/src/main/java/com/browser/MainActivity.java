@@ -6,13 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final Deque<BrowsingState> browsingStates = new LinkedList<>();
     private final MainActivity self = this;
-    private ViewGroup currentBrowsingView = null;
+    private TableLayout currentBrowsingView = null;
     private ArrayAdapter<String> mAutoCompletionAdapter = null;
 
     @Override
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         updateVocabulary();
+        currentBrowsingView = (TableLayout) findViewById(R.id.rdftable);
 
         mAutoCompletionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line);
         final AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.input);
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 String selected = textView.getText().toString();
                 Button t = new Button(self);
                 t.setText(selected);
-//                t.setEnabled(false);
 
                 LinearLayout horizontalNavigationBar = (LinearLayout) findViewById(R.id.navigation);
                 horizontalNavigationBar.addView(t);
@@ -111,16 +110,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void renderState(BrowsingState state) {
-        RelativeLayout browsingStateLayout = (RelativeLayout) findViewById(R.id.browsing_state);
+//        ScrollView browsingStateLayout = (ScrollView) findViewById(R.id.rdfList);
 
         // Remove the previous browsing state view
-        if (currentBrowsingView != null) {
-            browsingStateLayout.removeView(currentBrowsingView);
-        }
+//        if (currentBrowsingView != null) {
+//            browsingStateLayout.removeView(currentBrowsingView);
+//        }
 
         // Update the new browsing state view
-        currentBrowsingView = new BrowsingStateView(this, state).getView();
-        browsingStateLayout.addView(currentBrowsingView);
+        BrowsingStateView browsingStateView = new BrowsingStateView(this, state);
+        browsingStateView.getView(currentBrowsingView);
+
+//        currentBrowsingView = new BrowsingStateView(this, state);
+//        browsingStateLayout.addView(currentBrowsingView);
     }
 
     @Override

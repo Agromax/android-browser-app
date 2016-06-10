@@ -27,17 +27,242 @@
                 android:id="@+id/navigation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Remove Me!" />
+            </LinearLayout>
         </HorizontalScrollView>
 
-        <TextView
-            android:id="@+id/debug"
+        <ScrollView
+            android:id="@+id/rdfList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@color/nishuFav">
 
-        <RelativeLayout
-            android:id="@+id/browsing_state"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></RelativeLayout>
+            <TableLayout
+                android:id="@+id/rdftable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:stretchColumns="1">
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="deep shit" />
+
+                    <TextView
+                        android:padding="8dp"
+                        android:text="happennings" />
+                </TableRow>
+
+            </TableLayout>
+        </ScrollView>
     </LinearLayout>
 </RelativeLayout>
