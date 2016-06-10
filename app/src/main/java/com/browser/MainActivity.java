@@ -5,14 +5,19 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,10 +46,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                /*String selected = s.toString();
+
+                new VocabAutoCompletion().execute(s.toString());
+            }
+        });
+
+        textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selected = textView.getText().toString();
                 Button t = new Button(self);
                 t.setText(selected);
-                t.setEnabled(false);
+//                t.setEnabled(false);
 
                 LinearLayout horizontalNavigationBar = (LinearLayout) findViewById(R.id.navigation);
                 horizontalNavigationBar.addView(t);
@@ -57,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 BrowsingState currentState = new BrowsingState(previousState, selected);
                 browsingStates.push(currentState);
-                renderState(currentState);*/
-                new VocabAutoCompletion().execute(s.toString());
+                renderState(currentState);
             }
         });
 
@@ -68,7 +80,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected ArrayList<String> doInBackground(String... params) {
             Vocabulary vocab = Vocabulary.getInstance(self);
-            return vocab.query("/", params[0]);
+            BrowsingState currentBrowsingState = browsingStates.peekFirst();
+            String path = "/";
+            if (currentBrowsingState != null) {
+                List<String> tags = new LinkedList<>();
+                for (String node : currentBrowsingState.getNavigation()) {
+                    tags.add(XMLUtil.asXMLTag(node));
+                }
+                path = ListUtil.join(tags, "/") + "/";
+            }
+            return vocab.query(path, params[0]);
         }
 
         @Override

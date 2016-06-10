@@ -25,7 +25,7 @@ public class BrowsingStateView {
 
         TextView textView = new TextView(context);
 
-        textView.setText(readFile());
+        textView.setText(browsingState.getNavigation().toString());
 
         relativeLayout.addView(textView);
         return relativeLayout;
